@@ -1,0 +1,15 @@
+<% if @range == "User" %>
+  <h2>Users search for "<%= @word %>"</h2>
+  <% if @users.exists? %>
+    <%= render 'users/index', users: @users %>
+  <% else %>
+    <p>ユーザーはいません</p>
+  <% end %>
+<% else %>
+  <h2>Books search for "<%= @word %>"</h2>
+  <% if @books.exists? %>
+    <%= render 'books/index', books: @books %>
+  <% else %>
+  <p>not found</p>
+  <% end %>
+<% end %>
