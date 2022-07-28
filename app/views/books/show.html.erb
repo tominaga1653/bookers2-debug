@@ -17,18 +17,10 @@
           </td>
           <td><%= link_to @book.title, @book %></td>
           <td><%= @book.body %></td>
-          <td>
-          <% if @book.favorited_by?(current_user) %>
-            <%= link_to book_favorites_path(@book), method: :delete do %>
-            <P style="color:#ff367f">♥<%= @book.favorites.count %></P>
-            <% end %>
-          <% else %>
-            <%= link_to book_favorites_path(@book), method: :post do %>
-            <P style="color:#2c7cff">♥<%= @book.favorites.count %></P>
-            <% end %>
-          <% end %>
+          <td class="favorite-btn-<%= @book.id %>">
+          <%= render 'favorites/favorite_btn', book: @book %>
           </td>
-          <td>コメント数：<%= @book.book_comments.count %></td>
+          <td class="counter"><%= render 'book_comments/counter', book: @book %></td>
           <% if @book.user == current_user %>
             <td><%= link_to 'Edit', edit_book_path(@book), class: "btn btn-sm btn-success" %></td>
             <td><%= link_to 'Destroy', @book, method: :delete, data: { confirm: '本当に消しますか？' }, class: "btn btn-sm btn-danger"%></td>
