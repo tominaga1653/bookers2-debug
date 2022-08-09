@@ -23,7 +23,62 @@
     <div class='col-md-8 offset-md-1'>
       <h2>Books</h2>
       <%= render 'index', books: @books%>
-    </div>
 
+
+
+    <h5>7日間分の投稿数</h5>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>6日前</th>
+            <th>5日前</th>
+            <th>4日前</th>
+            <th>3日前</th>
+            <th>2日前</th>
+            <th>1日前</th>
+            <th>今日</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><%= @created_6days_ago.count %></td>
+            <td><%= @created_5days_ago.count %></td>
+            <td><%= @created_4days_ago.count %></td>
+            <td><%= @created_3days_ago.count %></td>
+            <td><%= @created_2days_ago.count %></td>
+            <td><%= @created_1days_ago.count %></td>
+            <td><%= @today_book.count %></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <div style="width:600px">
+      <canvas id="mychart"></canvas>
+      </div>
+      <script>
+        $(document).on('turbolinks:load', function () {
+        var ctx = document.getElementById('mychart');
+        var myChart = new Chart(ctx, {
+        type: 'line',
+        data: {
+        labels: ['6日前', '5日前', '4日前', '3日前', '2日前', '1日前', '今日'],
+        datasets: [ {
+          label: '投稿した本の数',
+          data: [<%= @created_6days_ago.count %>, <%= @created_5days_ago.count %>, <%= @created_4days_ago.count %>, <%= @created_3days_ago.count %>, <%= @created_2days_ago.count %>, <%= @created_1days_ago.count %>, <%= @today_book.count %>],
+          borderColor: '#48f',
+          tension: 0.4,
+           }],
+          },
+          options: {
+          y: {
+          min: 0,
+          },
+          },
+         });
+         });
+      </script>
+
+
+    </div>
   </div>
 </div>
